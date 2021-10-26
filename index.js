@@ -1,5 +1,7 @@
 let inputElement = document.getElementById("text");
 let inputElement2 = document.getElementById("num");
+let total = document.querySelector("#total")
+
 class Item {
   constructor(name, price) {
     this.name = name;
@@ -21,8 +23,13 @@ class Bill {
     this.items.splice(nome,1)
   }
 
-  billTotal = () => {
-    //TODO
+  billTotal = (...numeros) => {
+    let total = numeros.reduce((total, proximo) => total + proximo );
+  
+    
+    console.log(numeros);
+    console.log(total); 
+  
   }
 
   render = () => {
@@ -44,13 +51,10 @@ class Bill {
       deletar.setAttribute('style','text-decoration:none');
   
       let posicao = index;
-
       deletar.setAttribute('onclick','delBill(' + posicao + ')');
-
       let linkText = document.createTextNode('X');
 
       deletar.appendChild(linkText);
-
       row.appendChild(foodName);
       row.appendChild(foodPrice);
       row.appendChild(deletar);
@@ -64,10 +68,10 @@ var bill = new Bill();
 
 function init() {
   bill.render();
-   // if(bill.items == ''){
-  //     alert("comanda vazia!");
-  //     }
   document.getElementsByTagName('body')[0].style.display = 'flex';
+  //  if(bill.items == ''){
+  //  alert("comanda vazia!");
+  //  }
 }
 
 function printBill() {
@@ -92,9 +96,18 @@ function addBill(){
   alert("Adicione o nome e o valor");
   return
 }
+    //console.log(bill);
+   // console.log(bill.items[0].price);
+
+    bill.billTotal(valor);
+    //console.log(valor);
+    //total.innerHTML = bill.billTotal;
 }
 
 function delBill( posicao ){
     bill.removeItem(posicao);
     bill.render();
+    if(bill.items == ''){
+      alert("comanda vazia!");
+      }
   }
