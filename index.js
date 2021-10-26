@@ -23,9 +23,17 @@ class Bill {
     this.items.splice(nome,1)
   }
 
-  billTotal = (...valor) => {
-    let total = valor.reduce((total,proximo) => total + proximo );
-    console.log(total);
+  billTotal = () => {
+    
+      let arr = this.items.map((item)=>{
+      let preco = parseInt(item.price,10)
+      return preco
+    })
+    if (arr != ''){
+    let total = arr.reduce((total,proximo) => total + proximo );
+    return total;
+  }
+    else return ('R$ ' + 0);
   }
 
   render = () => {
@@ -64,6 +72,7 @@ var bill = new Bill();
 
 function init() {
   bill.render();
+  total.innerHTML = 0;
   document.getElementsByTagName('body')[0].style.display = 'flex';
    if(bill.items == ''){
   alert("comanda vazia!");
@@ -93,11 +102,13 @@ function addBill(){
   alert("Adicione o nome e o valor");
   return
 }
-    total.innerHTML = bill.billTotal(parseInt(valor,10));
+    total.innerHTML = ('R$ '+bill.billTotal());
+    bill.render();
 }
 
 function delBill( posicao ){
     bill.removeItem(posicao);
+    total.innerHTML = ('R$ '+bill.billTotal());
     bill.render();
     if(bill.items == ''){
       alert("comanda vazia!");
