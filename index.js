@@ -23,13 +23,9 @@ class Bill {
     this.items.splice(nome,1)
   }
 
-  billTotal = (...numeros) => {
-    let total = numeros.reduce((total, proximo) => total + proximo );
-  
-    
-    console.log(numeros);
-    console.log(total); 
-  
+  billTotal = (...valor) => {
+    let total = valor.reduce((total,proximo) => total + proximo );
+    console.log(total);
   }
 
   render = () => {
@@ -69,15 +65,16 @@ var bill = new Bill();
 function init() {
   bill.render();
   document.getElementsByTagName('body')[0].style.display = 'flex';
-  //  if(bill.items == ''){
-  //  alert("comanda vazia!");
-  //  }
+   if(bill.items == ''){
+  alert("comanda vazia!");
+  }
 }
 
 function printBill() {
   window.print();
   bill.items.splice(0, bill.items.length);
   console.log( bill.items);
+  total.innerHTML =  'R$ 0,00';
   bill.render();
 }
 
@@ -96,12 +93,7 @@ function addBill(){
   alert("Adicione o nome e o valor");
   return
 }
-    //console.log(bill);
-   // console.log(bill.items[0].price);
-
-    bill.billTotal(valor);
-    //console.log(valor);
-    //total.innerHTML = bill.billTotal;
+    total.innerHTML = bill.billTotal(parseInt(valor,10));
 }
 
 function delBill( posicao ){
