@@ -82,7 +82,6 @@ function init() {
 function printBill() {
   window.print();
   bill.items.splice(0, bill.items.length);
-  console.log( bill.items);
   total.innerHTML =  'R$ 0,00';
   bill.render();
 }
